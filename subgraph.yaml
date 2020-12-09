@@ -1,0 +1,35 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: RafflesContract
+    network: mainnet
+    source:
+      address: "0x144d196Bf99a4EcA33aFE036Da577d7D66583DB6"
+      abi: RafflesContract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RaffleClaimPrize
+        - RaffleRandomNumber
+        - RaffleStarted
+        - RaffleTicketsEntered
+      abis:
+        - name: RafflesContract
+          file: ./abis/RafflesContract.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RaffleClaimPrize(indexed uint256,address,address,uint256,uint256)
+          handler: handleRaffleClaimPrize
+        - event: RaffleRandomNumber(indexed uint256,uint256)
+          handler: handleRaffleRandomNumber
+        - event: RaffleStarted(indexed uint256,uint256,(address,uint256,(address,uint256,uint256)[])[])
+          handler: handleRaffleStarted
+        - event: RaffleTicketsEntered(indexed uint256,address,(address,uint256,uint256)[])
+          handler: handleRaffleTicketsEntered
+      file: ./src/mapping.ts

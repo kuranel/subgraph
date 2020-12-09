@@ -1,0 +1,23 @@
+
+"""
+An Entrant to Aavegotchi raffle.
+"""
+type Entrant @entity {
+  "Entrant ethereum address"
+  id: ID!
+  "Raffle no which the Entrant participated"
+  RaffleId: Int! 
+  "Tickets which the Entrant entered to the Raffle"
+  RaffleTicketsEntered: Bytes!
+  "Prizes which the Entrant claimed"
+  RaffleClaimPrize: Bytes!
+}
+
+type Winner @entity {
+"Entrant ethereum address"
+id: ID!
+"Entrant raffleId"
+RaffleId: Int!
+"Entrant Prizes"
+RaffleClaimPrize: Bytes!
+}
